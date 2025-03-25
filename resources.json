@@ -27,11 +27,22 @@
         "title": "Blue Team Labs Online",
         "description": "Defensive cybersecurity challenges and labs",
         "url": "https://blueteamlabs.online/",
-        "difficulty": "specialization",
+        "difficulty": "advanced",
         "price": "hundreds",
         "type": "practical lab",
         "field": "defensive",
         "tags": ["defense", "incident-response", "threat-hunting"]
+      },
+      {
+        "id": 4,
+        "title": "GCIH Certfication",
+        "description": "GIAC Certified Incident Handler",
+        "url": "https://www.giac.org/certifications/certified-incident-handler-gcih/",
+        "difficulty": "advanced",
+        "price": "thousands",
+        "type": "certification",
+        "field": "dfir",
+        "tags": ["penetration-testing", "incident-response", "exam", "certification"]
       }
     ]
   }
