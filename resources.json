@@ -43,6 +43,28 @@
         "type": "certification",
         "field": "dfir",
         "tags": ["penetration-testing", "incident-response", "exam", "certification"]
+      },
+      {
+        "id": 5,
+        "title": "Red Team Ops",
+        "description": "Adversary Simulation and Red Team Operations",
+        "url": "https://training.zeropointsecurity.co.uk/courses/red-team-ops",
+        "difficulty": "advanced",
+        "price": "hundreds",
+        "type": "course",
+        "field": "offensive",
+        "tags": ["penetration-testing", "exam", "certification"]
+      },
+      {
+        "id": 6,
+        "title": "Red Team Ops II",
+        "description": "Defence Evasion Tactics",
+        "url": "https://training.zeropointsecurity.co.uk/courses/red-team-ops-ii",
+        "difficulty": "advanced",
+        "price": "hundreds",
+        "type": "course",
+        "field": "offensive",
+        "tags": ["penetration-testing", "exam", "certification"]
       }
     ]
   }
