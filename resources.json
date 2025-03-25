@@ -1,0 +1,37 @@
+{
+    "resources": [
+      {
+        "id": 1,
+        "title": "TryHackMe Beginner Path",
+        "description": "Interactive cybersecurity learning platform with guided paths",
+        "url": "https://tryhackme.com/paths",
+        "difficulty": "intro",
+        "price": "tens",
+        "type": "learning materials",
+        "field": "offensive",
+        "tags": ["beginner", "hands-on", "ctf"]
+      },
+      {
+        "id": 2,
+        "title": "OSCP Certification",
+        "description": "Offensive Security Certified Professional - hands-on penetration testing certification",
+        "url": "https://www.offensive-security.com/pwk-oscp/",
+        "difficulty": "advanced",
+        "price": "thousands",
+        "type": "certification",
+        "field": "offensive",
+        "tags": ["penetration-testing", "exam", "certification"]
+      },
+      {
+        "id": 3,
+        "title": "Blue Team Labs Online",
+        "description": "Defensive cybersecurity challenges and labs",
+        "url": "https://blueteamlabs.online/",
+        "difficulty": "specialization",
+        "price": "hundreds",
+        "type": "practical lab",
+        "field": "defensive",
+        "tags": ["defense", "incident-response", "threat-hunting"]
+      }
+    ]
+  }

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KyberKompas</title>
+
+    <style>
+               :root {
+            --hacker-green: #00ff00;
+            --hacker-purple: #b802d8;
+            --dark-bg: #222;
+            --darker-bg: #222;
+            --card-bg: #11111a;
+            --text-light: #e0e0e0;
+            --text-muted: #888;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--hacker-purple);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--hacker-purple);
+            font-size: 1.2rem;
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #search-input {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            background-color: var(--card-bg);
+            border: 1px solid var(--darker-bg);
+            color: var(--hacker-green);
+            border-radius: 0;
+            outline: none;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            background-color: var(--darker-bg);
+            padding: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        select {
+            padding: 10px;
+            width: 100%;
+            background-color: var(--darker-bg);
+            border: 1px solid var(--hacker-green);
+            color: var(--text-light);
+            font-family: 'Courier New', monospace;
+        }
+
+        select:focus {
+            outline: none;
+        }
+
+        .resource-card {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--hacker-green);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .resource-card h3 {
+            margin-top: 0;
+            color: var(--hacker-green);
+        }
+
+        .resource-card a {
+            color: var(--hacker-green);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .resource-card a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--hacker-green);
+            transition: width 0.3s;
+        }
+
+        .resource-card a:hover::after {
+            width: 100%;
+        }
+
+        .resource-card p {
+            margin-bottom: 10px;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .meta-item strong {
+            color: var(--hacker-purple);
+            margin-right: 5px;
+        }
+
+        .tags {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: rgba(156, 39, 176, 0.2);
+            color: var(--hacker-purple);
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            font-style: italic;
+            color: var(--text-muted);
+            border: 1px dashed var(--hacker-purple);
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="hacker-text">KyberKompas</h1>
+    </header>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label for="difficulty-filter">DIFFICULTY:</label>
+            <select id="difficulty-filter">
+                <option value="">[ALL LEVELS]</option>
+                <option value="intro">BEGINNER</option>
+                <option value="advanced">ADVANCED</option>
+                <option value="specialization">EXPERT</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="price-filter">PRICE RANGE:</label>
+            <select id="price-filter">
+                <option value="">[ANY PRICE]</option>
+                <option value="free">FREE</option>
+                <option value="tens">$10-99</option>
+                <option value="hundreds">$100-999</option>
+                <option value="thousands">$1000+</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="type-filter">RESOURCE TYPE:</label>
+            <select id="type-filter">
+                <option value="">[ALL TYPES]</option>
+                <option value="learning materials">LEARNING</option>
+                <option value="practical lab">LABS</option>
+                <option value="certification">CERTS</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="field-filter">FIELD:</label>
+            <select id="field-filter">
+                <option value="">[ALL FIELDS]</option>
+                <option value="offensive">OFFENSIVE</option>
+                <option value="defensive">DEFENSIVE</option>
+                <option value="DFIR">DFIR</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="search...">
+    </div>
+
+    <div id="resources-container"></div>
+
+    <script>
+        // DOM elements
+        const searchInput = document.getElementById('search-input');
+        const difficultyFilter = document.getElementById('difficulty-filter');
+        const priceFilter = document.getElementById('price-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const fieldFilter = document.getElementById('field-filter');
+        const resourcesContainer = document.getElementById('resources-container');
+
+        // Load data from JSON file 
+        async function loadResources() {
+             try {
+                const response = await fetch('./resources.json');
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading resources:', error);
+                return { resources: [] };
+            }
+            
+        }
+
+        // Render resources based on filters
+        function renderResources(resources) {
+            resourcesContainer.innerHTML = '';
+
+            if (resources.length === 0) {
+                resourcesContainer.innerHTML = '<div class="no-results">No resources match your filters.</div>';
+                return;
+            }
+
+            resources.forEach(resource => {
+                const card = document.createElement('div');
+                card.className = 'resource-card';
+                
+                // Format price for display
+                const priceMap = {
+                    'free': 'Free',
+                    'tens': '€10-99',
+                    'hundreds': '€100-999',
+                    'thousands': '€1000+'
+                };
+                
+                // Format difficulty for display
+                const difficultyMap = {
+                    'intro': 'Introductory',
+                    'advanced': 'Advanced',
+                    'specialization': 'Specialization'
+                };
+                
+                // Format field for display
+                const fieldMap = {
+                    'offensive': 'Offensive Security',
+                    'defensive': 'Defensive Security',
+                    'DFIR': 'DFIR (Digital Forensics & Incident Response)'
+                };
+
+                card.innerHTML = `
+                    <h3><a href="${resource.url}" target="_blank">${resource.title}🔗</a></h3>
+                    <p>${resource.description}</p>
+                    <p><strong>Type:</strong> ${resource.type} | 
+                    <strong>Difficulty:</strong> ${difficultyMap[resource.difficulty] || resource.difficulty} | 
+                    <strong>Price:</strong> ${priceMap[resource.price] || resource.price} | 
+                    <strong>Field:</strong> ${fieldMap[resource.field] || resource.field}</p>
+                    <div class="tags">
+                        ${resource.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                resourcesContainer.appendChild(card);
+            });
+        }
+
+        // Filter resources based on search and filter criteria
+        function filterResources(resources) {
+            const searchTerm = searchInput.value.toLowerCase();
+            const difficultyValue = difficultyFilter.value;
+            const priceValue = priceFilter.value;
+            const typeValue = typeFilter.value;
+            const fieldValue = fieldFilter.value;
+
+            return resources.filter(resource => {
+                // Search term matching
+                const matchesSearch = 
+                    resource.title.toLowerCase().includes(searchTerm) ||
+                    resource.description.toLowerCase().includes(searchTerm) ||
+                    resource.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                
+                // Filter matching
+                const matchesDifficulty = !difficultyValue || resource.difficulty === difficultyValue;
+                const matchesPrice = !priceValue || resource.price === priceValue;
+                const matchesType = !typeValue || resource.type === typeValue;
+                const matchesField = !fieldValue || resource.field === fieldValue;
+
+                return matchesSearch && matchesDifficulty && matchesPrice && matchesType && matchesField;
+            });
+        }
+
+        // Initialize the app
+        async function init() {
+            const data = await loadResources();
+            let resources = data.resources;
+            
+            // Initial render
+            renderResources(resources);
+            
+            // Add event listeners for filtering
+            searchInput.addEventListener('input', () => {
+                renderResources(filterResources(resources));
+            });
+            
+            difficultyFilter.addEventListener('change', () => {
+                renderResources(filterResources(resources));
+            });
+            
+            priceFilter.addEventListener('change', () => {
+                renderResources(filterResources(resources));
+            });
+            
+            typeFilter.addEventListener('change', () => {
+                renderResources(filterResources(resources));
+            });
+            
+            fieldFilter.addEventListener('change', () => {
+                renderResources(filterResources(resources));
+            });
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>
