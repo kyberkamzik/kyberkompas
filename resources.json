@@ -65,6 +65,17 @@
         "type": "course",
         "field": "offensive",
         "tags": ["penetration-testing", "exam", "certification"]
+      },
+      {
+        "id": 7,
+        "title": "Test",
+        "description": "Test",
+        "url": "Test",
+        "difficulty": "advanced",
+        "price": "hundreds",
+        "type": "course",
+        "field": "offensive",
+        "tags": ["penetration-testing", "exam", "certification"]
       }
     ]
   }
